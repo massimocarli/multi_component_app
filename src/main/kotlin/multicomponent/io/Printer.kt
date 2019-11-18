@@ -1,4 +1,4 @@
-package daggersingleton
+package multicomponent.io
 
 /**
  * Simple abstraction of a Printer

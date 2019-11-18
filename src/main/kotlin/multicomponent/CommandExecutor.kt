@@ -1,7 +1,7 @@
 package multicomponent
 
-import daggersingleton.Printer
 import multicomponent.command.PromptCommand
+import multicomponent.io.Printer
 import multicomponent.io.PromptReader
 import javax.inject.Inject
 

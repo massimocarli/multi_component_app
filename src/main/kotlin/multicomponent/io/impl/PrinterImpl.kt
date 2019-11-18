@@ -1,11 +1,11 @@
-package daggersingleton
+package multicomponent.io.impl
 
-import javax.inject.Inject
+import multicomponent.io.Printer
 
 /**
  * Simple Printer implementation
  */
-class PrinterImpl @Inject constructor() : Printer {
+class PrinterImpl : Printer {
   override fun print(msg: String) {
     kotlin.io.print(msg)
   }

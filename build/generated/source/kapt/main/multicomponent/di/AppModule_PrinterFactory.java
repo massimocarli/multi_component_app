@@ -2,8 +2,8 @@ package multicomponent.di;
 
 import dagger.internal.Factory;
 import dagger.internal.Preconditions;
-import daggersingleton.Printer;
 import javax.annotation.Generated;
+import multicomponent.io.Printer;
 
 @Generated(
     value = "dagger.internal.codegen.ComponentProcessor",

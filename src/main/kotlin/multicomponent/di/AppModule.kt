@@ -2,14 +2,12 @@ package multicomponent.di
 
 import dagger.Module
 import dagger.Provides
-import daggersingleton.Printer
-import daggersingleton.PrinterImpl
 import multicomponent.command.PromptCommand
-import multicomponent.command.impl.EchoPromptCommand
-import multicomponent.command.impl.ExitPromptCommand
-import multicomponent.command.impl.LoadPromptCommand
-import multicomponent.command.impl.SavePromptCommand
+import multicomponent.command.impl.*
+import multicomponent.ext.JsonPromptCommand
+import multicomponent.io.Printer
 import multicomponent.io.PromptReader
+import multicomponent.io.impl.PrinterImpl
 import multicomponent.io.impl.PromptReaderImpl
 import multicomponent.repository.ValueRepository
 import multicomponent.repository.impl.MapValueRepository
@@ -34,6 +32,8 @@ class AppModule {
     EchoPromptCommand(),
     ExitPromptCommand(),
     SavePromptCommand(),
-    LoadPromptCommand()
+    LoadPromptCommand(),
+    JsonPromptCommand(),
+    ContainsPromptCommand()
   )
 }

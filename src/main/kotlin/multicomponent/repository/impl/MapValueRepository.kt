@@ -2,12 +2,11 @@ package multicomponent.repository.impl
 
 import multicomponent.repository.ValueRepository
 import java.util.stream.Stream
-import javax.inject.Inject
 
 /**
  * Simple implementation for the ValueRepository using a Map
  */
-class MapValueRepository @Inject constructor() : ValueRepository {
+class MapValueRepository : ValueRepository {
 
   private val map = mutableMapOf<String, String>()
 

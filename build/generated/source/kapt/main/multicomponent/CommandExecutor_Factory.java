@@ -1,11 +1,11 @@
 package multicomponent;
 
 import dagger.internal.Factory;
-import daggersingleton.Printer;
 import java.util.List;
 import javax.annotation.Generated;
 import javax.inject.Provider;
 import multicomponent.command.PromptCommand;
+import multicomponent.io.Printer;
 import multicomponent.io.PromptReader;
 
 @Generated(

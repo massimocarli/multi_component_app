@@ -21,6 +21,7 @@ class SavePromptCommand : PromptCommand() {
     if (tokens?.size == 3) {
       AppContext.appComponent?.repository()?.run {
         save(tokens[1], tokens[2])
+        println("In $name -> Repo: $this")
       }
     } else {
       println("Wrong parameters")

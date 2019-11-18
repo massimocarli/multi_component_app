@@ -21,6 +21,7 @@ class LoadPromptCommand : PromptCommand() {
     if (tokens?.size == 2) {
       AppContext.appComponent?.repository()?.run {
         println(load(tokens[1]))
+        println("In $name -> Repo: $this")
       }
     } else {
       println("Wrong parameters for $name command. $help")
