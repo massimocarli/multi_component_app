@@ -2,7 +2,6 @@ package multicomponent.ext
 
 import multicomponent.command.PromptCommand
 import multicomponent.context.AppContext
-import multicomponent.ext.di.JsonModule
 import multicomponent.io.Printer
 import multicomponent.repository.ValueRepository
 import javax.inject.Inject
@@ -31,8 +30,12 @@ class JsonPromptCommand : PromptCommand() {
   override fun execute() {
     val tokens = currentCommand?.split(" ")
     if (tokens?.size == 1) {
-      val jsonModule = JsonModule("/tmp/output.json")
-      AppContext.appComponent?.jsonComponent(jsonModule)?.inject(this)
+      AppContext.appComponent?.run {
+        jsonComponentBuilder()
+          .filePath("/tmp/output.json")
+          .build()
+          .inject(this@JsonPromptCommand)
+      }
       val json = serializer.serialize(repository)
       printer.print(json)
       println("In $name -> Repo: $repository, Serializer: $serializer and Printer: $printer")

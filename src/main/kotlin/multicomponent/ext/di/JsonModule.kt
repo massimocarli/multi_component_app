@@ -9,13 +9,11 @@ import multicomponent.io.Printer
 import javax.inject.Named
 
 @Module
-class JsonModule(
-  private val fileName: String
-) {
+class JsonModule {
 
   @Provides
   @Named("File")
-  fun providePrinter(): Printer = FilePrinterImpl(fileName)
+  fun providePrinter(@Named("filePath") fileName: String): Printer = FilePrinterImpl(fileName)
 
   @Provides
   fun jsonSerializer(): JsonSerializer = JsonSerializerImpl()
