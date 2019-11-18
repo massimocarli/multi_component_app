@@ -2,11 +2,16 @@ package multicomponent.command.impl
 
 import multicomponent.command.PromptCommand
 import multicomponent.context.AppContext
+import multicomponent.repository.ValueRepository
+import javax.inject.Inject
 
 /**
  * Implementation for the PromptCommand which saves a data into the repository
  */
 class SavePromptCommand : PromptCommand() {
+
+  @Inject
+  lateinit var repository: ValueRepository
 
   override val name: String
     get() = "save"
@@ -19,7 +24,8 @@ class SavePromptCommand : PromptCommand() {
   override fun execute() {
     val tokens = currentCommand?.split(" ")
     if (tokens?.size == 3) {
-      AppContext.appComponent?.repository()?.run {
+      AppContext.appComponent?.inject(this)
+      repository.run {
         save(tokens[1], tokens[2])
         println("In $name -> Repo: $this")
       }

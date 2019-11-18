@@ -2,12 +2,17 @@ package multicomponent.command.impl
 
 import multicomponent.command.PromptCommand
 import multicomponent.context.AppContext
+import multicomponent.repository.ValueRepository
+import javax.inject.Inject
 
 
 /**
  * Implementation for the PromptCommand which check a data into the repository
  */
 class ContainsPromptCommand : PromptCommand() {
+
+  @Inject
+  lateinit var repository: ValueRepository
 
   override val name: String
     get() = "contains"
@@ -20,7 +25,8 @@ class ContainsPromptCommand : PromptCommand() {
   override fun execute() {
     val tokens = currentCommand?.split(" ")
     if (tokens?.size == 2) {
-      AppContext.appComponent?.repository()?.run {
+      AppContext.appComponent?.inject(this)
+      repository.run {
         println(contains(tokens[1]))
         println("In $name -> Repo: $this")
       }

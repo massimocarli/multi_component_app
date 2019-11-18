@@ -3,8 +3,10 @@ package multicomponent.di
 import dagger.BindsInstance
 import dagger.Component
 import multicomponent.CommandExecutor
+import multicomponent.command.impl.ContainsPromptCommand
+import multicomponent.command.impl.LoadPromptCommand
+import multicomponent.command.impl.SavePromptCommand
 import multicomponent.ext.di.JsonComponent
-import multicomponent.repository.ValueRepository
 import java.util.*
 import javax.inject.Singleton
 
@@ -14,7 +16,9 @@ interface AppComponent {
 
   fun app(): CommandExecutor
 
-  fun repository(): ValueRepository
+  fun inject(command: ContainsPromptCommand)
+  fun inject(command: LoadPromptCommand)
+  fun inject(command: SavePromptCommand)
 
   fun jsonComponent(): JsonComponent
 
