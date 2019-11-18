@@ -1,10 +1,12 @@
 package multicomponent.ext.di;
 
+import dagger.internal.Preconditions;
 import javax.annotation.Generated;
-import multicomponent.ext.JsonSerializer;
+import multicomponent.di.AppComponent;
+import multicomponent.ext.JsonPromptCommand;
+import multicomponent.ext.JsonPromptCommand_MembersInjector;
 import multicomponent.ext.impl.FilePrinterImpl;
 import multicomponent.ext.impl.JsonSerializerImpl;
-import multicomponent.io.Printer;
 
 @Generated(
     value = "dagger.internal.codegen.ComponentProcessor",
@@ -15,32 +17,41 @@ import multicomponent.io.Printer;
     "rawtypes"
 })
 public final class DaggerJsonComponent implements JsonComponent {
-  private DaggerJsonComponent() {
+  private final AppComponent appComponent;
 
+  private DaggerJsonComponent(AppComponent appComponentParam) {
+    this.appComponent = appComponentParam;
   }
 
   public static Builder builder() {
     return new Builder();
   }
 
-  public static JsonComponent create() {
-    return new Builder().build();
+  @Override
+  public void inject(JsonPromptCommand command) {
+    injectJsonPromptCommand(command);}
+
+  private JsonPromptCommand injectJsonPromptCommand(JsonPromptCommand instance) {
+    JsonPromptCommand_MembersInjector.injectPrinter(instance, new FilePrinterImpl());
+    JsonPromptCommand_MembersInjector.injectRepository(instance, Preconditions.checkNotNull(appComponent.repository(), "Cannot return null from a non-@Nullable component method"));
+    JsonPromptCommand_MembersInjector.injectSerializer(instance, new JsonSerializerImpl());
+    return instance;
   }
 
-  @Override
-  public JsonSerializer serializer() {
-    return new JsonSerializerImpl();}
-
-  @Override
-  public Printer printer() {
-    return new FilePrinterImpl();}
-
   public static final class Builder {
+    private AppComponent appComponent;
+
     private Builder() {
     }
 
+    public Builder appComponent(AppComponent appComponent) {
+      this.appComponent = Preconditions.checkNotNull(appComponent);
+      return this;
+    }
+
     public JsonComponent build() {
-      return new DaggerJsonComponent();
+      Preconditions.checkBuilderRequirement(appComponent, AppComponent.class);
+      return new DaggerJsonComponent(appComponent);
     }
   }
 }

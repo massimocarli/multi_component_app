@@ -1,13 +1,16 @@
 package multicomponent.ext.di
 
 import dagger.Component
-import multicomponent.ext.JsonSerializer
-import multicomponent.io.Printer
+import multicomponent.di.AppComponent
+import multicomponent.di.CommandScope
+import multicomponent.ext.JsonPromptCommand
 
-@Component(modules = arrayOf(JsonModule::class))
+@Component(
+  modules = arrayOf(JsonModule::class),
+  dependencies = arrayOf(AppComponent::class)
+)
+@CommandScope
 interface JsonComponent {
 
-  fun serializer(): JsonSerializer
-
-  fun printer(): Printer
+  fun inject(command: JsonPromptCommand)
 }

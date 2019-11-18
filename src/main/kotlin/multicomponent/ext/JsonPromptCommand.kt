@@ -3,8 +3,20 @@ package multicomponent.ext
 import multicomponent.command.PromptCommand
 import multicomponent.context.AppContext
 import multicomponent.ext.di.DaggerJsonComponent
+import multicomponent.io.Printer
+import multicomponent.repository.ValueRepository
+import javax.inject.Inject
 
 class JsonPromptCommand : PromptCommand() {
+
+  @Inject
+  lateinit var printer: Printer
+
+  @Inject
+  lateinit var repository: ValueRepository
+
+  @Inject
+  lateinit var serializer: JsonSerializer
 
   override val name: String
     get() = "toJson"
@@ -17,15 +29,12 @@ class JsonPromptCommand : PromptCommand() {
   override fun execute() {
     val tokens = currentCommand?.split(" ")
     if (tokens?.size == 1) {
-      AppContext.appComponent?.repository()?.also { repository ->
-        // Here we have the repository
-        val jsonComp = DaggerJsonComponent.create()
-        val serializer = jsonComp.serializer()
-        val json = serializer.serialize(repository)
-        val printer = jsonComp.printer()
-        printer.print(json)
-        println("In $name -> Repo: $repository, Serializer: $serializer and Printer: $printer")
-      }
+      DaggerJsonComponent.builder()
+        .appComponent(AppContext.appComponent)
+        .build().inject(this)
+      val json = serializer.serialize(repository)
+      printer.print(json)
+      println("In $name -> Repo: $repository, Serializer: $serializer and Printer: $printer")
     } else {
       println("Wrong parameters")
       println(help)
