@@ -14,6 +14,7 @@ public final class AppModule {
     }
     
     @org.jetbrains.annotations.NotNull()
+    @javax.inject.Named(value = "Std")
     @dagger.Provides()
     public final multicomponent.io.Printer printer() {
         return null;

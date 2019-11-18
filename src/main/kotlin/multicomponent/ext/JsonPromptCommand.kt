@@ -2,14 +2,15 @@ package multicomponent.ext
 
 import multicomponent.command.PromptCommand
 import multicomponent.context.AppContext
-import multicomponent.ext.di.DaggerJsonComponent
 import multicomponent.io.Printer
 import multicomponent.repository.ValueRepository
 import javax.inject.Inject
+import javax.inject.Named
 
 class JsonPromptCommand : PromptCommand() {
 
   @Inject
+  @Named("File")
   lateinit var printer: Printer
 
   @Inject
@@ -29,9 +30,7 @@ class JsonPromptCommand : PromptCommand() {
   override fun execute() {
     val tokens = currentCommand?.split(" ")
     if (tokens?.size == 1) {
-      DaggerJsonComponent.builder()
-        .appComponent(AppContext.appComponent)
-        .build().inject(this)
+      AppContext.appComponent?.jsonComponent()?.inject(this)
       val json = serializer.serialize(repository)
       printer.print(json)
       println("In $name -> Repo: $repository, Serializer: $serializer and Printer: $printer")

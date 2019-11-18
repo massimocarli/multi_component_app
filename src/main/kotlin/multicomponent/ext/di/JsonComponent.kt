@@ -1,13 +1,11 @@
 package multicomponent.ext.di
 
-import dagger.Component
-import multicomponent.di.AppComponent
+import dagger.Subcomponent
 import multicomponent.di.CommandScope
 import multicomponent.ext.JsonPromptCommand
 
-@Component(
-  modules = arrayOf(JsonModule::class),
-  dependencies = arrayOf(AppComponent::class)
+@Subcomponent(
+  modules = arrayOf(JsonModule::class)
 )
 @CommandScope
 interface JsonComponent {

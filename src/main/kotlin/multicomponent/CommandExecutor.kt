@@ -4,9 +4,10 @@ import multicomponent.command.PromptCommand
 import multicomponent.io.Printer
 import multicomponent.io.PromptReader
 import javax.inject.Inject
+import javax.inject.Named
 
 class CommandExecutor @Inject constructor(
-  private val printer: Printer,
+  @Named("Std") private val printer: Printer,
   private val promptReader: PromptReader,
   private val commands: @JvmSuppressWildcards(true) List<PromptCommand>
 ) {

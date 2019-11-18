@@ -6,11 +6,13 @@ import multicomponent.ext.JsonSerializer
 import multicomponent.ext.impl.FilePrinterImpl
 import multicomponent.ext.impl.JsonSerializerImpl
 import multicomponent.io.Printer
+import javax.inject.Named
 
 @Module
 abstract class JsonModule {
 
   @Binds
+  @Named("File")
   abstract fun providePrinter(printer: FilePrinterImpl): Printer
 
   @Binds

@@ -6,6 +6,11 @@ import java.util.Scanner;
 import javax.annotation.Generated;
 import javax.inject.Provider;
 import multicomponent.CommandExecutor;
+import multicomponent.ext.JsonPromptCommand;
+import multicomponent.ext.JsonPromptCommand_MembersInjector;
+import multicomponent.ext.di.JsonComponent;
+import multicomponent.ext.impl.FilePrinterImpl;
+import multicomponent.ext.impl.JsonSerializerImpl;
 import multicomponent.io.PromptReader;
 import multicomponent.repository.ValueRepository;
 
@@ -30,7 +35,7 @@ public final class DaggerAppComponent implements AppComponent {
     initialize(appModuleParam, scannerParam);
   }
 
-  public static AppComponent.Builder factory() {
+  public static AppComponent.Factory factory() {
     return new Factory();
   }
 
@@ -50,11 +55,33 @@ public final class DaggerAppComponent implements AppComponent {
   public ValueRepository repository() {
     return repositoryProvider.get();}
 
-  private static final class Factory implements AppComponent.Builder {
+  @Override
+  public JsonComponent jsonComponent() {
+    return new JsonComponentImpl();
+  }
+
+  private static final class Factory implements AppComponent.Factory {
     @Override
     public AppComponent create(Scanner scanner) {
       Preconditions.checkNotNull(scanner);
       return new DaggerAppComponent(new AppModule(), scanner);
+    }
+  }
+
+  private final class JsonComponentImpl implements JsonComponent {
+    private JsonComponentImpl() {
+
+    }
+
+    @Override
+    public void inject(JsonPromptCommand command) {
+      injectJsonPromptCommand(command);}
+
+    private JsonPromptCommand injectJsonPromptCommand(JsonPromptCommand instance) {
+      JsonPromptCommand_MembersInjector.injectPrinter(instance, new FilePrinterImpl());
+      JsonPromptCommand_MembersInjector.injectRepository(instance, DaggerAppComponent.this.repositoryProvider.get());
+      JsonPromptCommand_MembersInjector.injectSerializer(instance, new JsonSerializerImpl());
+      return instance;
     }
   }
 }

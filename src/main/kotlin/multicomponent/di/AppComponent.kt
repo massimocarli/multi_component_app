@@ -3,6 +3,7 @@ package multicomponent.di
 import dagger.BindsInstance
 import dagger.Component
 import multicomponent.CommandExecutor
+import multicomponent.ext.di.JsonComponent
 import multicomponent.repository.ValueRepository
 import java.util.*
 import javax.inject.Singleton
@@ -15,8 +16,10 @@ interface AppComponent {
 
   fun repository(): ValueRepository
 
+  fun jsonComponent(): JsonComponent
+
   @Component.Factory
-  interface Builder {
+  interface Factory {
     fun create(
       @BindsInstance scanner: Scanner
     ): AppComponent

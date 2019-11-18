@@ -7,6 +7,7 @@ import java.lang.System;
 public abstract class JsonModule {
     
     @org.jetbrains.annotations.NotNull()
+    @javax.inject.Named(value = "File")
     @dagger.Binds()
     public abstract multicomponent.io.Printer providePrinter(@org.jetbrains.annotations.NotNull()
     multicomponent.ext.impl.FilePrinterImpl printer);
