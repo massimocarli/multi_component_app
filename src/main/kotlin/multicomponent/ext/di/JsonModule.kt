@@ -1,7 +1,7 @@
 package multicomponent.ext.di
 
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import multicomponent.ext.JsonSerializer
 import multicomponent.ext.impl.FilePrinterImpl
 import multicomponent.ext.impl.JsonSerializerImpl
@@ -9,12 +9,14 @@ import multicomponent.io.Printer
 import javax.inject.Named
 
 @Module
-abstract class JsonModule {
+class JsonModule(
+  private val fileName: String
+) {
 
-  @Binds
+  @Provides
   @Named("File")
-  abstract fun providePrinter(printer: FilePrinterImpl): Printer
+  fun providePrinter(): Printer = FilePrinterImpl(fileName)
 
-  @Binds
-  abstract fun jsonSerializer(printer: JsonSerializerImpl): JsonSerializer
+  @Provides
+  fun jsonSerializer(): JsonSerializer = JsonSerializerImpl()
 }

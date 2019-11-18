@@ -10,12 +10,14 @@ import javax.inject.Inject
 /**
  * Printer implementation on file
  */
-class FilePrinterImpl @Inject constructor() : Printer {
+class FilePrinterImpl @Inject constructor(
+  private val fileName: String
+) : Printer {
   override fun print(msg: String) {
-    val file = File("/tmp/output.json")
+    val file = File(fileName)
     try {
       PrintWriter(FileOutputStream(file)).also {
-        it.println(msg)
+        it.print(msg)
         it.close()
       }
     } catch (ex: IOException) {
