@@ -20,7 +20,7 @@ interface AppComponent {
   fun inject(command: LoadPromptCommand)
   fun inject(command: SavePromptCommand)
 
-  fun jsonComponentBuilder(): JsonComponent.Builder
+  fun jsonComponentFactory(): JsonComponent.Factory
 
   @Component.Factory
   interface Factory {

@@ -31,9 +31,8 @@ class JsonPromptCommand : PromptCommand() {
     val tokens = currentCommand?.split(" ")
     if (tokens?.size == 1) {
       AppContext.appComponent?.run {
-        jsonComponentBuilder()
-          .filePath("/tmp/output.json")
-          .build()
+        jsonComponentFactory()
+          .create("/tmp/output.json")
           .inject(this@JsonPromptCommand)
       }
       val json = serializer.serialize(repository)

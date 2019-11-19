@@ -10,3 +10,5 @@ fun main() {
   AppContext.appComponent = comp
   comp.app().execute()
 }
+
+

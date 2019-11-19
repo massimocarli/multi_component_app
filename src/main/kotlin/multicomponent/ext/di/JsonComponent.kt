@@ -14,12 +14,9 @@ interface JsonComponent {
 
   fun inject(command: JsonPromptCommand)
 
-  @Subcomponent.Builder
-  interface Builder {
-
-    @BindsInstance
-    fun filePath(@Named("filePath") filePath: String): Builder
-
-    fun build(): JsonComponent
+  @Subcomponent.Factory
+  interface Factory {
+    
+    fun create(@BindsInstance @Named("filePath") filePath: String): JsonComponent
   }
 }
