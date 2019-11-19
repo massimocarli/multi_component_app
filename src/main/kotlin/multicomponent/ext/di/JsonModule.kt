@@ -2,6 +2,9 @@ package multicomponent.ext.di
 
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.IntoSet
+import multicomponent.command.PromptCommand
+import multicomponent.ext.JsonPromptCommand
 import multicomponent.ext.JsonSerializer
 import multicomponent.ext.impl.FilePrinterImpl
 import multicomponent.ext.impl.JsonSerializerImpl
@@ -17,4 +20,8 @@ class JsonModule {
 
   @Provides
   fun jsonSerializer(): JsonSerializer = JsonSerializerImpl()
+
+  @Provides
+  @IntoSet
+  fun command(): PromptCommand = JsonPromptCommand()
 }

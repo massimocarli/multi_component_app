@@ -3,14 +3,26 @@ package multicomponent.di
 import dagger.BindsInstance
 import dagger.Component
 import multicomponent.CommandExecutor
+import multicomponent.command.AppContainerCommandModule
+import multicomponent.command.GeneralCommandModule
+import multicomponent.command.RepositoryCommandModule
 import multicomponent.command.impl.ContainsPromptCommand
 import multicomponent.command.impl.LoadPromptCommand
 import multicomponent.command.impl.SavePromptCommand
 import multicomponent.ext.di.JsonComponent
+import multicomponent.ext.di.JsonModule
 import java.util.*
 import javax.inject.Singleton
 
-@Component(modules = arrayOf(AppModule::class))
+@Component(
+  modules = arrayOf(
+    AppModule::class,
+    AppContainerCommandModule::class,
+    GeneralCommandModule::class,
+    RepositoryCommandModule::class,
+    JsonModule::class
+  )
+)
 @Singleton
 interface AppComponent {
 

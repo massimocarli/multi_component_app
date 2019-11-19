@@ -9,7 +9,7 @@ import javax.inject.Named
 class CommandExecutor @Inject constructor(
   @Named("Std") private val printer: Printer,
   private val promptReader: PromptReader,
-  private val commands: @JvmSuppressWildcards(true) List<PromptCommand>
+  private val commands: @JvmSuppressWildcards(true) Set<PromptCommand>
 ) {
 
   fun execute() {

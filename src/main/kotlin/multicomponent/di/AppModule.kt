@@ -2,9 +2,6 @@ package multicomponent.di
 
 import dagger.Module
 import dagger.Provides
-import multicomponent.command.PromptCommand
-import multicomponent.command.impl.*
-import multicomponent.ext.JsonPromptCommand
 import multicomponent.io.Printer
 import multicomponent.io.PromptReader
 import multicomponent.io.impl.PrinterImpl
@@ -28,14 +25,4 @@ class AppModule {
   @Provides
   @Singleton
   fun repository(): ValueRepository = MapValueRepository()
-
-  @Provides
-  fun commands(): List<PromptCommand> = listOf(
-    EchoPromptCommand(),
-    ExitPromptCommand(),
-    SavePromptCommand(),
-    LoadPromptCommand(),
-    JsonPromptCommand(),
-    ContainsPromptCommand()
-  )
 }
