@@ -2,6 +2,7 @@ package multicomponent.ext
 
 import multicomponent.command.PromptCommand
 import multicomponent.context.AppContext
+import multicomponent.ext.di.DaggerJsonComponent
 import multicomponent.io.Printer
 import multicomponent.repository.ValueRepository
 import javax.inject.Inject
@@ -31,8 +32,8 @@ class JsonPromptCommand : PromptCommand() {
     val tokens = currentCommand?.split(" ")
     if (tokens?.size == 1) {
       AppContext.appComponent?.run {
-        jsonComponentFactory()
-          .create("/tmp/output.json")
+        DaggerJsonComponent.factory()
+          .create(this, "/tmp/output.json")
           .inject(this@JsonPromptCommand)
       }
       val json = serializer.serialize(repository)

@@ -9,8 +9,7 @@ import multicomponent.command.RepositoryCommandModule
 import multicomponent.command.impl.ContainsPromptCommand
 import multicomponent.command.impl.LoadPromptCommand
 import multicomponent.command.impl.SavePromptCommand
-import multicomponent.ext.di.JsonComponent
-import multicomponent.ext.di.JsonModule
+import multicomponent.repository.ValueRepository
 import java.util.*
 import javax.inject.Singleton
 
@@ -19,8 +18,7 @@ import javax.inject.Singleton
     AppModule::class,
     AppContainerCommandModule::class,
     GeneralCommandModule::class,
-    RepositoryCommandModule::class,
-    JsonModule::class
+    RepositoryCommandModule::class
   )
 )
 @Singleton
@@ -28,11 +26,11 @@ interface AppComponent {
 
   fun app(): CommandExecutor
 
+  fun repository(): ValueRepository
+
   fun inject(command: ContainsPromptCommand)
   fun inject(command: LoadPromptCommand)
   fun inject(command: SavePromptCommand)
-
-  fun jsonComponentFactory(): JsonComponent.Factory
 
   @Component.Factory
   interface Factory {

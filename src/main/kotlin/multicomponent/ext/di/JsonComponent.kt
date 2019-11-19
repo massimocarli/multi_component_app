@@ -1,22 +1,27 @@
 package multicomponent.ext.di
 
 import dagger.BindsInstance
-import dagger.Subcomponent
+import dagger.Component
+import multicomponent.di.AppComponent
 import multicomponent.di.CommandScope
 import multicomponent.ext.JsonPromptCommand
 import javax.inject.Named
 
-@Subcomponent(
-  modules = arrayOf(JsonModule::class)
+@Component(
+  modules = arrayOf(JsonModule::class),
+  dependencies = arrayOf(AppComponent::class)
 )
 @CommandScope
 interface JsonComponent {
 
   fun inject(command: JsonPromptCommand)
 
-  @Subcomponent.Factory
+  @Component.Factory
   interface Factory {
-    
-    fun create(@BindsInstance @Named("filePath") filePath: String): JsonComponent
+
+    fun create(
+      appComponent: AppComponent,
+      @BindsInstance @Named("filePath") filePath: String
+    ): JsonComponent
   }
 }
