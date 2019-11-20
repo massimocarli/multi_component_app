@@ -9,6 +9,7 @@ import multicomponent.command.RepositoryCommandModule
 import multicomponent.command.impl.ContainsPromptCommand
 import multicomponent.command.impl.LoadPromptCommand
 import multicomponent.command.impl.SavePromptCommand
+import multicomponent.ext.di.JsonModule
 import multicomponent.repository.ValueRepository
 import java.util.*
 import javax.inject.Singleton
@@ -18,7 +19,8 @@ import javax.inject.Singleton
     AppModule::class,
     AppContainerCommandModule::class,
     GeneralCommandModule::class,
-    RepositoryCommandModule::class
+    RepositoryCommandModule::class,
+    JsonModule::class
   )
 )
 @Singleton
